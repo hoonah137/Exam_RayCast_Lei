@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RayShoot : MonoBehaviour
 {
 
     Transform _cam;
     public int count;
+    Text _text;
 
 
     // Start is called before the first frame update
@@ -14,6 +16,7 @@ public class RayShoot : MonoBehaviour
     {
         _cam = Camera.main.transform;
         count = 5;
+        _text = GetComponentInChildren<Text>();
 
     }
 
@@ -21,6 +24,7 @@ public class RayShoot : MonoBehaviour
     void Update()
     {
         RayCasting();
+        _text.text = count.ToString();
     }
 
     void RayCasting()
@@ -31,7 +35,26 @@ public class RayShoot : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Debug.Log("Shoot");
+            count --;
+            
+
+            if (count == 0)
+            {
+               if (hit.transform.gameObject.layer == 6)
+               {
+                Debug.Log("cubo1");
+               }
+
+               if (hit.transform.gameObject.layer == 7)
+               {
+                Debug.Log("cubo2");
+               }
+
+               if (hit.transform.gameObject.layer == 8)
+               {
+                Debug.Log("pelota");
+               }
+            }
         }
        }
         
